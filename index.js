@@ -3,12 +3,13 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+app.use(express.json());
+
 // preference to upload the code to hereku or, otherwise to localhost port 3000.
 const port = process.env.PORT || 3000; 
 
 // mongo config and connection
 const url = require('./setup/myUrl').mongoUrl;
-
 mongoose.connect(url, {
     useNewUrlParser: true,
     useFindAndModify: false,
@@ -43,5 +44,12 @@ app.get('/', (req, res) => {
 
 //Bring All routes
 const auth = require('./routes/api/auth');
+const questions = require('./routes/api/questions');
+const profile = require('./routes/api/profile');
+
+//routes handler
+app.use("/api/auth", auth);
+app.use("/api/questions", questions);
+app.use("/api/profile", profile);
 
 app.listen(port, () => console.log(`Server is running at port ${port}...`));
