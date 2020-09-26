@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+//parsing the json data
 app.use(express.json());
 
 // preference to upload the code to hereku or, otherwise to localhost port 3000.

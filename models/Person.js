@@ -16,7 +16,7 @@ const PersonSchema = new mongoose.Schema({
     },
     username:{
         type: String,
-        
+        required: true
     },
     profilepic:{
         type: String,

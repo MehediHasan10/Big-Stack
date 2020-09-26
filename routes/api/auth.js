@@ -25,7 +25,8 @@ router.post('/register', (req,res) => {
                 const newPerson = new Person({
                     name: req.body.name,
                     email: req.body.email,
-                    password: req.body.password
+                    password: req.body.password, 
+                    username: req.body.username
                 });
                 //Encrypted password
                 bcrypt.genSalt(10, (err, salt) => {
@@ -41,6 +42,33 @@ router.post('/register', (req,res) => {
             }
         })
         .catch(err => console.log(err));
+});
+
+//route - /api/auth/login
+//route for login of users
+
+router.post('/login', (req,res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    Person.findOne({email})
+        .then( person => {
+            if(!person){
+                return res.status(404).json({emailError: "Email is not found !"});
+            } else {
+                bcrypt.compare(password, person.password)
+                    .then(isCorrect => {
+                        if(isCorrect){
+                            return res.status(200).json({success: "Login is successfull !"});
+                        } else {
+                            return res.status(404).json({passwordError: "Invalid Password !"});
+                        }
+                    })
+                    .catch((err) => console.log(err));
+            }
+        })
+        .catch(err => console.log(err));
+
 })
 
 module.exports = router;
