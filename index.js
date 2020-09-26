@@ -29,16 +29,7 @@ db.once('open', () => {
 });
 module.exports = mongoose;
 
-// mongoose
-//     .connect(url)
-//     .then(() => console.log('DB is connected...'))
-//     .catch(err => console.log(`Error: ${err}`));   
-//Database connection
-// mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true });
-// const db = mongoose.connection;
-// db.on("open", () => console.log("DB Connection Successfull !"));
-// db.on("error", (err) => console.log(err));
-
+//for testing purpose
 app.get('/', (req, res) => {
     res.send("Hi there...");
 });

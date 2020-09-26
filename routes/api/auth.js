@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
-const key = require("../../setup/myUrl").secret;
+const key = require("../../setup/myUrl");
 
 //route - /api/auth
 //for testing purpose
@@ -46,7 +46,6 @@ router.post('/register', (req,res) => {
 
 //route - /api/auth/login
 //route for login of users
-
 router.post('/login', (req,res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -59,7 +58,24 @@ router.post('/login', (req,res) => {
                 bcrypt.compare(password, person.password)
                     .then(isCorrect => {
                         if(isCorrect){
-                            return res.status(200).json({success: "Login is successfull !"});
+                            // return res.status(200).json({success: "Login is successfull !"});
+                            // use payload and create token for user 
+                            const payload = {
+                                id: person.id,
+                                name: person.name,
+                                email: person.email
+                            };
+                            jwt.sign(
+                                payload,
+                                key.secret,
+                                {expiresIn: 3600},
+                                (err, token) => {
+                                    res.json({
+                                        success: true,
+                                        token: 'Bearer ' + token
+                                    })
+                                }
+                            )
                         } else {
                             return res.status(404).json({passwordError: "Invalid Password !"});
                         }
