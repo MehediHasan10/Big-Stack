@@ -1,7 +1,8 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const mongoose = require('mongoose');
-const Person = mongoose.model('myPerson');
+// const Person = require('../models/Person');
+mongoose.model('myPerson'); //Whenever we need to create a mongoose object, we need to create it through mongoose model. Which is a good practice.
 const myKey = require("../setup/myUrl");
 
 var options = {};
