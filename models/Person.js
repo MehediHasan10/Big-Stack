@@ -15,8 +15,7 @@ const PersonSchema = new mongoose.Schema({
         required: true 
     },
     username:{
-        type: String,
-        required: true
+        type: String
     },
     profilepic:{
         type: String,
@@ -28,4 +27,4 @@ const PersonSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('myPerson', PersonSchema);
+module.exports = Person = mongoose.model('myPerson', PersonSchema);
