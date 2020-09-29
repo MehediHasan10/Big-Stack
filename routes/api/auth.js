@@ -46,7 +46,6 @@ router.post('/register', (req,res) => {
 
 //route - /api/auth/login
 //route for login of users
-
 router.post('/login', (req,res) => {
     const email = req.body.email;
     const password = req.body.password;
