@@ -45,13 +45,9 @@ router.post("/register", (req, res) => {
 });
 
 //route - /api/auth/login
-<<<<<<< HEAD
-//route for login of users
-router.post('/login', (req,res) => {
-=======
 //route for login of users (Public)
 router.post("/login", (req, res) => {
->>>>>>> 05c1c5de91b240739b97662377d0ea0a344478b1
+
     const email = req.body.email;
     const password = req.body.password;
 
@@ -101,7 +97,7 @@ router.post("/login", (req, res) => {
 //route for user profile (Private)
 router.get(
     "/profile",
-    passport.authenticate("jwt", { session: false }), (req, res) => {
+    passport.authenticate("jwt", { session: false }), (req, res) => {``
         // console.log(req);
         res.json({
             id: req.user.id,
