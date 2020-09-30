@@ -30,7 +30,7 @@ db.on('error', () => {
 db.once('open', () => {
     console.log('> successfully opened the database');
 });
-module.exports = mongoose;
+// module.exports = mongoose;
 
 //Passport middleware
 app.use(passport.initialize()); //If we implement any kind of strategy,we've to configure it.
@@ -47,6 +47,8 @@ app.use("/api/auth", auth);
 app.use("/api/questions", questions);
 app.use("/api/profile", profile);
 
-// preference to upload the code to hereku or, otherwise to localhost port 3000.
+//preference to upload the code to hereku or, otherwise to localhost port 3000.
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server is running at port ${port}...`));
+
+
