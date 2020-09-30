@@ -12,7 +12,6 @@ const Person = require("../../models/Person");
 //for testing purpose
 router.get("/", (req, res) => res.json({ test: "Auth is being tested!" }));
 
-
 //route - /api/auth/register
 //route for registration of users (Public)
 router.post("/register", (req, res) => {
@@ -26,12 +25,13 @@ router.post("/register", (req, res) => {
                 const newPerson = new Person({
                     name: req.body.name,
                     email: req.body.email,
-                    password: req.body.password
+                    password: req.body.password,
+                    username: req.body.username
                 });
                 //Encrypt password
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(newPerson.password, salt, (err, hash) => {
-                        // if (err) throw err;
+                        if (err) throw err;
                         newPerson.password = hash;
                         newPerson
                             .save()
