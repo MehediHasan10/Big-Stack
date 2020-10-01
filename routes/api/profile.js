@@ -41,6 +41,35 @@ router.post(
         if(req.body.youtube) profileValues.youtube = req.body.youtube;
         if(req.body.facebook) profileValues.facebook = req.body.facebook;
         if(req.body.instagram) profileValues.instagram = req.body.instagram;
+
+        // Database Stuff
+        Profile.findOne({ user: req.user.id })
+            .then(profile => {
+                if(profile){
+                    profile.findOneAndUpdate(
+                        {user: req.user.id},
+                        {$set: profileValues},
+                        {new:true}
+                        )
+                        .then(res.json(profile))
+                        .catch(err => console.log(`Problem in update: ${err}`));
+                } else {
+                    Profile.findOne({ username: profileValues.username })
+                        .then(profile => {
+                            //duplicate username 
+                            if(profile){
+                                res.status(400).json({ usernameError : "Duplicated Username !" })
+                            } 
+                            // save user profile
+                            new Profile(profileValues)
+                                .save()
+                                .then(res.json(profile))
+                                .catch(err => console.log(err))
+                        })
+                        .catch(err => console.log(err));
+                }
+            })
+            .catch(err => console.log(`Problem in fetching profile: ${err}`));
     }
     )
 
